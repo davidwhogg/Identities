@@ -1,0 +1,238 @@
+\documentclass[11pt,reqno,intlimits]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\parindent=0in
+
+\def\beq#1\eeq{\begin{equation}#1\end{equation}}
+\def\bmeq#1\emeq{\begin{multline}#1\end{multline}}
+\def\beqa#1\eeqa{\begin{align}#1\end{align}}
+\def\bseq#1\eseq{\begin{subequations}#1\end{subequations}}
+
+\newcommand{\ie}{\text{i.e.~}}
+\newcommand{\eg}{\text{e.g.~}}
+
+\newcommand{\distrib}{\thicksim}
+\newcommand{\normal}[2]{\mathcal{N} \left( #1,#2 \right)}
+\newcommand{\normale}[3]{\mathcal{N} \left( #1,#2 \right) |_{#3}}
+\newcommand{\prob}[1]{P \left( #1 \right)}
+\newcommand{\by}{\times}
+
+\newcommand{\sm}[1]{[\begin{smallmatrix}#1\end{smallmatrix}]}
+\newcommand{\bm}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\xx}{{\mathbf x}}
+\newcommand{\yy}{{\mathbf y}}
+\newcommand{\zz}{{\mathbf z}}
+\newcommand{\mm}{{\mathbf m}}
+\newcommand{\CC}{{\mathbf C}}
+\newcommand{\DD}{{\mathbf D}}
+\newcommand{\BB}{{\mathbf B}}
+\newcommand{\EE}{{\mathbf E}}
+\newcommand{\FF}{{\mathbf F}}
+\newcommand{\XX}{{\mathbf X}}
+\newcommand{\YY}{{\mathbf Y}}
+\newcommand{\VV}{{\mathbf V}}
+\newcommand{\UU}{{\mathbf U}}
+\newcommand{\WW}{{\mathbf W}}
+\renewcommand{\AA}{{\mathbf A}}
+\newcommand{\QQ}{{\mathbf Q}}
+\newcommand{\RR}{{\mathbf R}}
+\renewcommand{\SS}{{\mathbf S}}
+\newcommand{\TT}{{\mathbf T}}
+\newcommand{\ZZ}{{\mathbf 0}}
+\newcommand{\II}{{\mathbf I}}
+\newcommand{\ee}{{\mathbf e}}
+\newcommand{\bb}{{\mathbf b}}
+\newcommand{\cc}{{\mathbf c}}
+\newcommand{\aaa}{{\mathbf a}}
+%\newcommand{\bbb}{{\boldsymbol \beta}}
+\newcommand{\mmm}{{\boldsymbol \mu}}
+\newcommand{\Lm}{{\boldsymbol \Lambda}}
+\newcommand{\Sm}{{\boldsymbol \Sigma}}
+\newcommand{\Pv}{{\boldsymbol \pi}_1}
+\newcommand{\Pm}{{\boldsymbol \Pi}_1}
+\newcommand{\trace}[1]{\text{Tr}\left[ #1 \right]}
+\newcommand{\rank}[1]{\text{rank}\left[ #1 \right]}
+
+
+\begin{document}
+
+\title{gaussian identities}
+\author{sam roweis}
+\date{ \hrule
+\begin{center}
+(revised July 1999)
+\end{center}
+}
+
+\maketitle
+
+%{\bf note} that $\aaa$,$\bb$,$\cc$ and $\AA$,$\BB$,$\CC$ 
+%do not depend on $\XX$,$\YY$,$\xx$,$\yy$ or $z$
+
+\subsection{multidimensional gaussian}
+a $d$-dimensional multidimensional gaussian (normal) density for $\xx$
+is:
+\beq
+\normal{\mmm}{\Sm} = 
+(2\pi)^{-d/2}|\Sm|^{-1/2}
+\exp\left[-\frac{1}{2}(\xx-\mmm)^T\Sm^{-1}(\xx-\mmm)\right]
+\eeq
+it has entropy:
+\beq
+S = \frac{1}{2}\log_2\left[ (2\pi e)^d|\Sm| \right] \: - \text{const}
+\quad \text{bits}
+\eeq
+% entropy of a gaussian is
+% S = k/2 (1+log(2 pi) ) + 1/2 log ( m^2 det A^{-1} ) 
+% where k is dimensionality, A is covariance matrix and m is the
+% measure on \xx that makes the probability dimensionless
+where $\Sm$ is a symmetric postive semi-definite covariance matrix and
+the (unfortunate) constant is the log of the units in which $\xx$ is
+measured over the ``natural units''
+
+\subsection{linear functions of a normal vector}
+no matter how $\xx$ is distributed,
+\bseq
+\beqa
+\mathrm{E}[\AA\xx+\yy] &= \AA(\mathrm{E}[\xx]) + \yy \\
+\mathrm{Covar}[\AA\xx + \yy] &= \AA(\mathrm{Covar}[\xx])\AA^T
+\eeqa
+\eseq
+in particular this means that for normal distributed quantities:
+\bseq
+\beqa
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+(\AA\xx + \yy) \distrib \normal{\AA\mmm + \yy}{\AA \Sm \AA^T} \\
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+\Sm^{-1/2}(\xx - \mmm) \distrib \normal{\ZZ}{\II} \\
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+(\xx - \mmm)^T\Sm^{-1}(\xx - \mmm) \distrib \chi^2_n 
+\eeqa
+\eseq
+
+\subsection{marginal and conditional distributions}
+let the vector $\zz=[\xx^T \yy^T]^T$ be normally distributed according
+to:
+\bseq
+\beq
+\zz  = \begin{bmatrix}\xx \\ \yy \end{bmatrix}
+\distrib \normal{\begin{bmatrix}\aaa \\ \bb \end{bmatrix}}
+{\begin{bmatrix}\AA & \CC \\ \CC^T & \BB \end{bmatrix}}
+\eeq
+where $\CC$ is the (non-symmetric)
+cross-covariance matrix between $\xx$ and $\yy$ which has as
+many rows as the size of $\xx$ and as many columns as the size of
+ $\yy$. then the marginal distributions are:
+\beqa
+\xx &\distrib \normal{\aaa}{\AA} \\
+\yy &\distrib \normal{\bb}{\BB}
+\eeqa
+and the conditional distributions are:
+\beqa
+\xx | \yy &\distrib \normal{\aaa + \CC\BB^{-1}(\yy-\bb)}
+{\AA - \CC\BB^{-1}\CC^T} \\
+\yy | \xx &\distrib \normal{\bb + \CC^T\AA^{-1}(\xx-\aaa)}
+{\BB - \CC^T\AA^{-1}\CC}
+\eeqa
+\eseq
+
+\subsection{multiplication}
+the multiplication of two gaussian functions is another gaussian
+function (although no longer normalized). in particular,
+\bseq
+\beq
+\normal{\aaa}{\AA} \cdot \normal{\bb}{\BB} \propto \normal{\cc}{\CC}
+\eeq 
+where
+\beqa
+\CC &= \left( \AA^{-1}+\BB^{-1} \right)^{-1}\\
+\cc &= \CC\AA^{-1}\aaa + \CC\BB^{-1}\bb
+\eeqa
+amazingly, the normalization constant $z_c$ is Gaussian in either
+$\aaa$ or $\bb$:
+\beqa
+z_c &= (2\pi)^{-d/2}|\CC|^{+1/2}|\AA|^{-1/2}|\BB|^{-1/2}
+\exp \left[ -\frac{1}{2}( \aaa^T\AA^{-1}\aaa + \bb^T\BB^{-1}\bb 
+- \cc^T\CC^{-1}\cc ) \right]\\
+z_c(\aaa) &\distrib \normal{(\AA^{-1}\CC\AA^{-1})^{-1}
+(\AA^{-1}\CC\BB^{-1})\bb}
+{(\AA^{-1}\CC\AA^{-1})^{-1}}\\
+z_c(\bb) &\distrib \normal{(\BB^{-1}\CC\BB^{-1})^{-1}
+(\BB^{-1}\CC\AA^{-1})\aaa}
+{(\BB^{-1}\CC\BB^{-1})^{-1}}
+\eeqa
+\eseq
+
+\subsection{quadratic forms}
+the expectation of a quadratic form under a gaussian is another
+quadratic form (plus an annoying constant). in particular,
+if $\xx$ is gaussian distributed with mean $\mm$ and variance $\SS$ then,
+\bseq
+\bmeq
+\int_{\xx}(\xx-\mmm)^T\Sm^{-1}(\xx-\mmm)\normal{\mm}{\SS}d\xx \\
+= (\mmm-\mm)^T\Sm^{-1}(\mmm-\mm)+\trace{\Sm^{-1}\SS}
+\emeq
+if the original quadratic form has a linear function of $\xx$ the
+result is still simple:
+\bmeq
+\int_{\xx}(\WW\xx-\mmm)^T\Sm^{-1}(\WW\xx-\mmm)\normal{\mm}{\SS}d\xx \\
+= (\mmm-\WW\mm)^T\Sm^{-1}(\mmm-\WW\mm)+\trace{\WW^T\Sm^{-1}\WW\SS}
+\emeq
+%here is a quick sketch of the derivation
+%\bmeq
+%\int_{\xx}(\xx^T\Sm^{-1}\xx)\normal{\mm}{\SS}d\xx -
+%2\mmm^T\Sm^{-1}\int_{\xx}(\xx)\normal{\mm}{\SS}d\xx +\\
+%\mmm^T\Sm^{-1}\mmm\int_{\xx}\normal{\mm}{\SS}d\xx
+%\emeq
+%\beqa
+%& = & \int_{\xx}\trace{\Sm^{-1}\xx\xx^T}\normal{\mm}{\SS}d\xx -
+%2\mmm^T\Sm^{-1}\mm+ \mmm^T\Sm^{-1}\mmm \\
+%& = & \trace{\Sm^{-1}(\mm\mm^T+\SS)}- 
+%2\mmm^T\Sm^{-1}\mm+ \mmm^T\Sm^{-1}\mmm \\
+%& = & (\mmm-\mm)^T\Sm^{-1}(\mmm-\mm)+\trace{\Sm^{-1}\SS}
+%\eeqa
+\eseq
+\subsection{convolution}
+the convolution of two gaussian functions is another gaussian function
+(although no longer normalized). in particular, 
+\beq
+\normal{\aaa}{\AA} \ast \normal{\bb}{\BB} \propto \normal{\aaa+\bb}{\AA+\BB}
+\eeq
+this is a direct consequence of the fact that the Fourier transform of
+a gaussian is another gaussian and that the multiplication of two
+gaussians is still gaussian.
+
+\subsection{Fourier transform}
+the (inverse)Fourier transform of a gaussian function is another gaussian
+function (although no longer normalized). in particular,
+\bseq
+\beqa
+\mathcal{F}\left[\normal{\aaa}{\AA}\right] &\propto
+\normal{j\AA^{-1}\aaa}{\AA^{-1}}\\
+\mathcal{F}^{-1}\left[\normal{\bb}{\BB}\right] &\propto
+\normal{-j\BB^{-1}\bb}{\BB^{-1}}
+\eeqa
+\eseq
+where $j=\sqrt{-1}$
+
+\subsection{constrained maximization}
+the maximum over $\xx$ of the quadratic form:
+\bseq
+\beq
+\mmm^T\xx - \frac{1}{2}\xx^T\AA^{-1}\xx
+\eeq 
+subject to the $J$ conditions $c_j(\xx)=0$  is given by:
+\beq
+\AA\mmm + \AA\CC\Lm, \qquad \Lm = -4(\CC^T\AA\CC)\CC^T\AA\mmm
+\eeq
+\eseq
+where the $j$th column of $\CC$ is $\partial c_j(\xx) / \partial \xx$
+
+
+\end{document}            
+
+
+
+
+  
+
