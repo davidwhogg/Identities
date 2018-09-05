@@ -11,3 +11,6 @@ We currently do not understand the licensing of this material; to be worked out 
 - **David W. Hogg** (NYU) (Flatiron)
 - **Dustin Lang** (Toronto) (Perimeter)
 - **Boris Leistedt** (NYU)
+
+## Related activity
+- David Warde-Farley @dwf has put up <https://github.com/dwf/roweis-identities>.
