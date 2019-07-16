@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{url}
 
 \addtolength{\textheight}{1.5in}
@@ -114,7 +116,250 @@ We follow the verbatim notes with some discussion and some additional forms.
 \clearpage
 \section{Matrix Identities}
 
-Hello World
+%% \documentclass[11pt,reqno,intlimits]{article}
+%% \usepackage{amsmath}
+%% \usepackage{amssymb}
+%% \parindent=0in
+
+\newcommand{\ie}{\text{i.e.~}}
+\newcommand{\eg}{\text{e.g.~}}
+
+\newcommand{\distrib}{\thicksim}
+\newcommand{\normal}[2]{\mathcal{N} \left( #1,#2 \right)}
+\newcommand{\normale}[3]{\mathcal{N} \left( #1,#2 \right) |_{#3}}
+\newcommand{\prob}[1]{P \left( #1 \right)}
+\newcommand{\by}{\times}
+
+\newcommand{\sm}[1]{[\begin{smallmatrix}#1\end{smallmatrix}]}
+\newcommand{\bm}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\xx}{{\mathbf x}}
+\newcommand{\yy}{{\mathbf y}}
+\newcommand{\zz}{{\mathbf z}}
+\newcommand{\CC}{{\mathbf C}}
+\newcommand{\DD}{{\mathbf D}}
+\newcommand{\BB}{{\mathbf B}}
+\newcommand{\EE}{{\mathbf E}}
+\newcommand{\FF}{{\mathbf F}}
+\newcommand{\XX}{{\mathbf X}}
+\newcommand{\YY}{{\mathbf Y}}
+\newcommand{\VV}{{\mathbf V}}
+\newcommand{\UU}{{\mathbf U}}
+\renewcommand{\AA}{{\mathbf A}}
+\newcommand{\QQ}{{\mathbf Q}}
+\newcommand{\RR}{{\mathbf R}}
+\newcommand{\TT}{{\mathbf T}}
+\newcommand{\ZZ}{{\mathbf 0}}
+\newcommand{\II}{{\mathbf I}}
+\newcommand{\ee}{{\mathbf e}}
+\newcommand{\bb}{{\mathbf b}}
+\newcommand{\cc}{{\mathbf c}}
+\newcommand{\aaa}{{\mathbf a}}
+%\newcommand{\bbb}{{\boldsymbol \beta}}
+\newcommand{\mmm}{{\boldsymbol \mu}}
+\newcommand{\Lm}{{\boldsymbol \Lambda}}
+\newcommand{\Sm}{{\boldsymbol \Sigma}}
+\newcommand{\Pv}{{\boldsymbol \pi}_1}
+\newcommand{\Pm}{{\boldsymbol \Pi}_1}
+\newcommand{\trace}[1]{\text{Tr}\left[ #1 \right]}
+\newcommand{\rank}[1]{\text{rank}\left[ #1 \right]}
+
+%% \begin{document}
+
+%% \title{matrix identities}
+%% %\author{sam roweis}
+%% \date{ \hrule
+%% %\begin{center}
+%% %(revised June 1999)
+%% %\end{center}
+%% }
+
+%% \maketitle
+
+\noindent \textbf{note}
+that $\aaa$,$\bb$,$\cc$ and $\AA$,$\BB$,$\CC$ 
+do not depend on $\XX$,$\YY$,$\xx$,$\yy$ or $z$
+
+\subsection{basic formulae}
+\begin{align}
+\AA(\BB + \CC) & = \AA\BB + \AA \CC \\
+(\AA + \BB)^T & = \AA^T + \BB^T \\
+(\AA\BB)^T & = \BB^T \AA^T \\
+\text{if individual inverses exist:} \nonumber\\
+(\AA\BB)^{-1} & = \BB^{-1}\AA^{-1} \\
+(\AA^{-1})^T & = (\AA^T)^{-1}
+\end{align}
+
+\subsection{trace, determinant and rank}
+\begin{align}
+|\AA \BB| & = |\AA| |\BB| \\
+|\AA^{-1}| & = \frac{1}{|\AA|} \\
+|\AA| & = \prod \text{evals} \\
+\trace{\AA} & = \sum \text{evals} \\
+\text{if the cyclic products are well defined:} \nonumber\\
+\trace{\AA\BB\CC \dots}   = \trace{\BB\CC \dots \AA}
+                        & = \trace{\CC \dots \AA\BB}
+                          = \dots \\
+\rank{\AA}   = \rank{\AA^T\AA}
+           & = \rank{\AA\AA^T}
+\end{align}
+\begin{align}
+\text{condition number} & = \sqrt{\frac{\text{biggest
+eigenvalue}}{\text{smallest eigenvalue}}}
+\end{align}
+
+\subsection{derivatives of traces}
+\noindent \textbf{derivatives}
+of scalar forms with respect to scalars, vectors, or
+matricies are indexed in the obvious way. similarly, the indexing for
+derivatives of vectors and matrices with respect to scalars is
+straightforward.
+
+\begin{align}
+\frac{\partial \trace{\XX}}{\partial \XX} &= \II \\
+\frac{\partial \trace{\XX \AA}}{\partial \XX} =
+\frac{\partial \trace{\AA \XX}}{\partial \XX} &= \AA^T\\
+\frac{\partial \trace{\XX^T \AA}}{\partial \XX} =
+\frac{\partial \trace{\AA \XX^T}}{\partial \XX} &= \AA\\
+\frac{\partial \trace{\XX^T\AA \XX}}{\partial \XX} &= (\AA+\AA^T)\XX \\
+\frac{\partial \trace{\XX^{-1} \AA}}{\partial \XX} &= 
+-\XX^{-1} \AA^T \XX^{-1}
+\end{align}
+
+\subsection{derivatives of determinants}
+\begin{align}
+\frac{\partial |\AA\XX\BB|}{\partial \XX} = |\AA\XX\BB|(\XX^{-1})^T &=
+|\AA\XX\BB|(\XX^T)^{-1}\\
+\frac{\partial \ln |\XX|}{\partial \XX} = (\XX^{-1})^T &= (\XX^T)^{-1}\\
+\frac{\partial \ln |\XX(z)|}{\partial z} &=
+\trace{(\XX^{-1})^T\frac{\partial \XX}{\partial z}} \\
+\text{for real, square} \thinspace \AA \quad 
+\frac{\partial |\XX^T\AA\XX|}{\partial \XX} &=
+|\XX^T\AA\XX|(\AA+\AA^T)\XX(\XX^T\AA\XX)^{-1} 
+\end{align}
+
+\subsection{derivatives of scalar forms}
+\begin{align}
+\frac{\partial (\aaa^T \xx)}{\partial \xx} = 
+\frac{\partial (\xx^T \aaa)}{\partial \xx} &= \aaa \\
+\frac{\partial (\xx^T\AA\xx)}{\partial \xx} &= (\AA + \AA^T)\xx \\ 
+\frac{\partial (\aaa^T\XX\bb)}{\partial \XX} &= \aaa\bb^T  \\
+\frac{\partial (\aaa^T\XX^T\bb)}{\partial \XX} &= \bb\aaa^T  \\
+\frac{\partial (\aaa^T\XX\aaa)}{\partial \XX} = 
+\frac{\partial (\aaa^T\XX^T\aaa)}{\partial \XX} &= \aaa\aaa^T \\
+\frac{\partial (\aaa^T\XX^T\CC\XX\bb)}{\partial \XX} &= 
+\CC^T\XX\aaa\bb^T + \CC\XX\bb\aaa^T \\
+\frac{\partial \left((\XX\aaa+\bb)^T\CC(\XX\aaa+\bb)\right)}{\partial \XX} &= 
+(\CC+\CC^T)(\XX\aaa+\bb)\aaa^T
+\end{align}
+
+%d                      -1 dA   
+%-- log det A = Trace (A   --), 
+%da                        da   
+
+\noindent
+the {\bf derivative} of one vector $\yy$ with respect to
+another vector $\xx$ is a matrix whose $(i,j)^{th}$ element is
+$\partial y(j)/ \partial x(i)$. such a derivative should be written as
+$\partial \yy^T / \partial \xx$
+ in which case it is the {\em
+Jacobian} matrix of $\yy$ wrt $\xx$. its determinant 
+represents the ratio of the hypervolume $d\yy$ to that of
+$d\xx$ so that 
+$\int f(\yy) d\yy = \int f(\yy(\xx)) |\partial \yy^T /\partial \xx|d\xx$. 
+however, the sloppy forms 
+$\partial \yy / \partial \xx$,
+$\partial \yy^T / \partial \xx^T$ and
+$\partial \yy / \partial \xx^T$ are often used for this Jacobain matrix.
+
+\subsection{derivatives of vector/matrix forms}
+\begin{align}
+\frac{\partial (\XX^{-1})}{\partial z} &= -
+\XX^{-1}  \frac{\partial \XX}{\partial z} \XX^{-1} \\
+\frac{\partial (\AA \xx)}{\partial z} &= \AA  
+\frac{\partial \xx}{\partial z}\\
+\frac{\partial (\XX \YY)}{\partial z} &=
+\XX  \frac{\partial \YY}{\partial z} +
+\frac{\partial \XX}{\partial z} \YY \\ 
+\frac{\partial (\AA \XX \BB)}{\partial z} &= \AA 
+\frac{\partial \XX}{\partial z} \BB\\  
+\frac{\partial (\xx^T\AA)}{\partial \xx} &= \AA \\ 
+\frac{\partial (\xx^T)}{\partial \xx} &= \II \\
+\frac{\partial (\xx^T\AA\xx\xx^T)}{\partial \xx} &= 
+(\AA+\AA^T)\xx\xx^T+\xx^T\AA\xx\II
+\end{align}
+
+\subsection{constrained maximization}
+the maximum over $\xx$ of the quadratic form:
+\begin{align}
+\mmm^T\xx - \frac{1}{2}\xx^T\AA^{-1}\xx
+\end{align}
+subject to the $J$ conditions $c_j(\xx)=0$  is given by:
+\begin{align}
+\AA\mmm + \AA\CC\Lm, \qquad \Lm & = -4(\CC^T\AA\CC)\CC^T\AA\mmm
+\end{align}
+where the $j$th column of $\CC$ is $\partial c_j(\xx) / \partial \xx$
+
+\subsection{symmetric matrices}
+have real eigenvalues, though perhaps not distinct and can always
+be diagonalized to the form: 
+\begin{align}
+\AA & = \CC \Lm \CC^T
+\end{align}
+where the columns of $\CC$
+are (orthonormal) eigenvectors (\ie $\CC \CC^T = \II$) and the
+diagonal of $\Lm$ has the eigenvalues
+
+\subsection{block matrices}
+for conformably partitioned block matrices, addition and
+multiplication is performed by adding and multiplying blocks in
+exactly the same way as scalar elements of regular matrices
+
+\noindent 
+however, determinants and inverses of block matrices are very tricky;
+for 2 blocks by 2 blocks the results are:
+\begin{align}
+\begin{vmatrix}\AA_{11}&\AA_{12}\\ \AA_{21}&\AA_{22}\end{vmatrix} 
+&= |\AA_{22}| \cdot |\FF_{11}| = |\AA_{11}| \cdot  |\FF_{22}| \\ 
+{\begin{bmatrix}\AA_{11}&\AA_{12}\\ \AA_{21}&\AA_{22}\end{bmatrix}}^{-1} &=
+\begin{bmatrix}
+\FF_{11}^{-1}&-\AA_{11}^{-1}\AA_{12}\FF_{22}^{-1}\\
+-\FF_{22}^{-1}\AA_{21}\AA_{11}^{-1}& \FF_{22}^{-1}
+\end{bmatrix} \\
+&= \begin{bmatrix} 
+\AA_{11}^{-1}+\AA_{11}^{-1} \AA_{12} \FF_{22}^{-1} \AA_{21} \AA_{11}^{-1} & 
+-\FF_{11}^{-1} \AA_{12} \AA_{22}^{-1}\\
+-\AA_{22}^{-1} \AA_{21} \FF_{11}^{-1} & 
+\AA_{22}^{-1}+\AA_{22}^{-1} \AA_{21} \FF_{11}^{-1} \AA_{12} \AA_{22}^{-1}
+\end{bmatrix} 
+\end{align}
+where
+\begin{align}
+\FF_{11} & = \AA_{11}-\AA_{12}\AA_{22}^{-1}\AA_{21} \\
+\FF_{22} & = \AA_{22}-\AA_{21}\AA_{11}^{-1}\AA_{12}
+\end{align}
+for block {\em diagonal} matrices things are much easier:
+\begin{align}
+\begin{vmatrix}\AA_{11} & \ZZ \\ \ZZ & \AA_{22}\end{vmatrix} 
+&=  |\AA_{11}||\AA_{22}|\\
+{\begin{bmatrix}\AA_{11} & \ZZ \\ \ZZ &\AA_{22}\end{bmatrix}}^{-1} &=
+\begin{bmatrix}
+\AA_{11}^{-1} & \ZZ \\ \ZZ & \AA_{22}^{-1}
+\end{bmatrix}
+\end{align}
+
+\subsection{matrix inversion lemma}
+using the above results for block matrices we can make some
+substitutions and get the following important result:
+\begin{align}
+(\AA + \XX\BB\XX^T)^{-1} & = 
+\AA^{-1}-\AA^{-1}\XX(\BB^{-1}+\XX^T\AA^{-1}\XX)^{-1}\XX^T\AA^{-1}
+\end{align}
+where $\AA$ and $\BB$ are {\em square} and {\em invertible} matrices
+but need not be of the same dimension.
+this lemma often
+allows a really hard inverse to be converted into an easy inverse. the
+most typical example of this is when $\AA$ is large but diagonal, and
+$\XX$ has many rows but few columns
 
 \clearpage
 \section{Gaussian Identities}
