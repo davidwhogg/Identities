@@ -7,7 +7,7 @@
 \addtolength{\headheight}{-0.75in}
 \sloppy\sloppypar\raggedbottom\frenchspacing
 
-\begin{document}
+\begin{document}\thispagestyle{empty}\raggedbottom\sloppy\sloppypar\frenchspacing
 
 \section*{Matrix and Gaussian Identities}
 
@@ -103,9 +103,8 @@ elsewhere (CITE MATRIX COOKBOOK, for example)... HOGG ADD WORDS.
 
 In what follows, we include the Roweis notes verbatim, preserving
 the original typesetting decisions as closely as possible.
-We have not, however, preserved exactly the equation numbering,
-because if we did there would be name collisions between the matrix identities
-and the Gaussian identities.
+We have not, however, preserved the equation numbering,
+and we have messed with the line breaks or horizontal alignment for some equations.
 We have also corrected a few tiny typos, including one or two places where
 Roweis (deliberately) didn't capitalize letters.
 We make these changes with apologies to the faithful and utmost respect to the dead.
@@ -135,18 +134,21 @@ We follow the verbatim notes with some discussion and some additional forms.
 \newcommand{\xx}{{\mathbf x}}
 \newcommand{\yy}{{\mathbf y}}
 \newcommand{\zz}{{\mathbf z}}
+\newcommand{\mm}{{\mathbf m}}
+\renewcommand{\AA}{{\mathbf A}}
+\newcommand{\BB}{{\mathbf B}}
 \newcommand{\CC}{{\mathbf C}}
 \newcommand{\DD}{{\mathbf D}}
-\newcommand{\BB}{{\mathbf B}}
 \newcommand{\EE}{{\mathbf E}}
 \newcommand{\FF}{{\mathbf F}}
 \newcommand{\XX}{{\mathbf X}}
 \newcommand{\YY}{{\mathbf Y}}
 \newcommand{\VV}{{\mathbf V}}
 \newcommand{\UU}{{\mathbf U}}
-\renewcommand{\AA}{{\mathbf A}}
+\newcommand{\WW}{{\mathbf W}}
 \newcommand{\QQ}{{\mathbf Q}}
 \newcommand{\RR}{{\mathbf R}}
+\renewcommand{\SS}{{\mathbf S}}
 \newcommand{\TT}{{\mathbf T}}
 \newcommand{\ZZ}{{\mathbf 0}}
 \newcommand{\II}{{\mathbf I}}
@@ -269,7 +271,7 @@ $\int f(\yy) d\yy = \int f(\yy(\xx)) |\partial \yy^T /\partial \xx|d\xx$.
 however, the sloppy forms 
 $\partial \yy / \partial \xx$,
 $\partial \yy^T / \partial \xx^T$ and
-$\partial \yy / \partial \xx^T$ are often used for this Jacobain matrix.
+$\partial \yy / \partial \xx^T$ are often used for this Jacobian matrix.
 
 \subsection{derivatives of vector/matrix forms}
 \begin{align}
@@ -364,7 +366,140 @@ $\XX$ has many rows but few columns
 \clearpage
 \section{Gaussian Identities}
 
-Hello World
+
+
+\subsection{multidimensional gaussian}
+a $d$-dimensional multidimensional gaussian (normal) density for $\xx$
+is:
+\begin{align}
+\normal{\mmm}{\Sm} = 
+(2\pi)^{-d/2}|\Sm|^{-1/2}
+\exp\left[-\frac{1}{2}(\xx-\mmm)^T\Sm^{-1}(\xx-\mmm)\right]
+\end{align}
+it has entropy:
+\begin{align}
+S = \frac{1}{2}\log_2\left[ (2\pi e)^d|\Sm| \right] \: - \text{const}
+\quad \text{bits}
+\end{align}
+% entropy of a gaussian is
+% S = k/2 (1+log(2 pi) ) + 1/2 log ( m^2 det A^{-1} ) 
+% where k is dimensionality, A is covariance matrix and m is the
+% measure on \xx that makes the probability dimensionless
+where $\Sm$ is a symmetric postive semi-definite covariance matrix and
+the (unfortunate) constant is the log of the units in which $\xx$ is
+measured over the ``natural units''
+
+\subsection{linear functions of a normal vector}
+no matter how $\xx$ is distributed,
+\begin{align}
+\mathrm{E}[\AA\xx+\yy] &= \AA(\mathrm{E}[\xx]) + \yy \\
+\mathrm{Covar}[\AA\xx + \yy] &= \AA(\mathrm{Covar}[\xx])\AA^T
+\end{align}
+in particular this means that for normal distributed quantities:
+\begin{align}
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+(\AA\xx + \yy) \distrib \normal{\AA\mmm + \yy}{\AA \Sm \AA^T} \\
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+\Sm^{-1/2}(\xx - \mmm) \distrib \normal{\ZZ}{\II} \\
+\xx \distrib \normal{\mmm}{\Sm} &\Rightarrow
+(\xx - \mmm)^T\Sm^{-1}(\xx - \mmm) \distrib \chi^2_n 
+\end{align}
+
+\subsection{marginal and conditional distributions}
+let the vector $\zz=[\xx^T \yy^T]^T$ be normally distributed according
+to:
+\begin{align}
+\zz  = \begin{bmatrix}\xx \\ \yy \end{bmatrix}
+\distrib \normal{\begin{bmatrix}\aaa \\ \bb \end{bmatrix}}
+{\begin{bmatrix}\AA & \CC \\ \CC^T & \BB \end{bmatrix}}
+\end{align}
+where $\CC$ is the (non-symmetric)
+cross-covariance matrix between $\xx$ and $\yy$ which has as
+many rows as the size of $\xx$ and as many columns as the size of
+ $\yy$. then the marginal distributions are:
+\begin{align}
+\xx &\distrib \normal{\aaa}{\AA} \\
+\yy &\distrib \normal{\bb}{\BB}
+\end{align}
+and the conditional distributions are:
+\begin{align}
+\xx | \yy &\distrib \normal{\aaa + \CC\BB^{-1}(\yy-\bb)}
+{\AA - \CC\BB^{-1}\CC^T} \\
+\yy | \xx &\distrib \normal{\bb + \CC^T\AA^{-1}(\xx-\aaa)}
+{\BB - \CC^T\AA^{-1}\CC}
+\end{align}
+
+\subsection{multiplication}
+the multiplication of two gaussian functions is another gaussian
+function (although no longer normalized). in particular,
+\begin{align}
+\normal{\aaa}{\AA} \cdot \normal{\bb}{\BB} \propto \normal{\cc}{\CC}
+\end{align} 
+where
+\begin{align}
+\CC &= \left( \AA^{-1}+\BB^{-1} \right)^{-1}\\
+\cc &= \CC\AA^{-1}\aaa + \CC\BB^{-1}\bb
+\end{align}
+amazingly, the normalization constant $z_c$ is Gaussian in either
+$\aaa$ or $\bb$:
+\begin{align}
+z_c &= (2\pi)^{-d/2}|\CC|^{+1/2}|\AA|^{-1/2}|\BB|^{-1/2}
+\exp \left[ -\frac{1}{2}( \aaa^T\AA^{-1}\aaa + \bb^T\BB^{-1}\bb 
+- \cc^T\CC^{-1}\cc ) \right]\\
+z_c(\aaa) &\distrib \normal{(\AA^{-1}\CC\AA^{-1})^{-1}
+(\AA^{-1}\CC\BB^{-1})\bb}
+{(\AA^{-1}\CC\AA^{-1})^{-1}}\\
+z_c(\bb) &\distrib \normal{(\BB^{-1}\CC\BB^{-1})^{-1}
+(\BB^{-1}\CC\AA^{-1})\aaa}
+{(\BB^{-1}\CC\BB^{-1})^{-1}}
+\end{align}
+
+\subsection{quadratic forms}
+the expectation of a quadratic form under a gaussian is another
+quadratic form (plus an annoying constant). in particular,
+if $\xx$ is gaussian distributed with mean $\mm$ and variance $\SS$ then,
+\begin{align}
+\int_{\xx}(\xx-\mmm)^T\Sm^{-1}(\xx-\mmm)\normal{\mm}{\SS}d\xx \\
+= (\mmm-\mm)^T\Sm^{-1}(\mmm-\mm)+\trace{\Sm^{-1}\SS}
+\end{align}
+if the original quadratic form has a linear function of $\xx$ the
+result is still simple:
+\begin{align}
+\int_{\xx}(\WW\xx-\mmm)^T\Sm^{-1}(\WW\xx-\mmm)\normal{\mm}{\SS}d\xx \\
+= (\mmm-\WW\mm)^T\Sm^{-1}(\mmm-\WW\mm)+\trace{\WW^T\Sm^{-1}\WW\SS}
+\end{align}
+
+\subsection{convolution}
+the convolution of two gaussian functions is another gaussian function
+(although no longer normalized). in particular, 
+\begin{align}
+\normal{\aaa}{\AA} \ast \normal{\bb}{\BB} \propto \normal{\aaa+\bb}{\AA+\BB}
+\end{align}
+this is a direct consequence of the fact that the Fourier transform of
+a gaussian is another gaussian and that the multiplication of two
+gaussians is still gaussian.
+
+\subsection{Fourier transform}
+the (inverse)Fourier transform of a gaussian function is another gaussian
+function (although no longer normalized). in particular,
+\begin{align}
+\mathcal{F}\left[\normal{\aaa}{\AA}\right] &\propto
+\normal{j\AA^{-1}\aaa}{\AA^{-1}}\\
+\mathcal{F}^{-1}\left[\normal{\bb}{\BB}\right] &\propto
+\normal{-j\BB^{-1}\bb}{\BB^{-1}}
+\end{align}
+where $j=\sqrt{-1}$
+
+\subsection{constrained maximization}
+the maximum over $\xx$ of the quadratic form:
+\begin{align}
+\mmm^T\xx - \frac{1}{2}\xx^T\AA^{-1}\xx
+\end{align} 
+subject to the $J$ conditions $c_j(\xx)=0$  is given by:
+\begin{align}
+\AA\mmm + \AA\CC\Lm, \qquad \Lm = -4(\CC^T\AA\CC)\CC^T\AA\mmm
+\end{align}
+where the $j$th column of $\CC$ is $\partial c_j(\xx) / \partial \xx$
 
 \clearpage
 \section{Discussion}
