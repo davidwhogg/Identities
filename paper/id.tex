@@ -12,9 +12,13 @@
 {\raggedright
 \textbf{Sam~Roweis}%
 \footnote{Deceased.
-Formerly at the \textsl{Department of Computer Science, New York University}.},
+Formerly at the \textsl{Department of Computer Science, New York University};
+and \textsl{Google Inc.};
+and the \textsl{Department of Computer Science, University of Toronto}.},
 \textbf{David~W.~Hogg}%
-\footnote{\textsl{Center for Cosmology and Particle Physics, Department of Physics, New York University}; and the \textsl{Flatiron Institute, a Division of the Simons Foundation}.},
+\footnote{\textsl{Center for Cosmology and Particle Physics, Department of Physics, New York University};
+and the \textsl{Flatiron Institute, a Division of the Simons Foundation};
+and the \textsl{Max-Planck-Insitut f\"ur Astronomie}.},
 \textbf{Dustin~Lang}%
 \footnote{\textsl{Perimeter Institute}.},
 \& \textbf{Boris~Leistedt}%
@@ -30,8 +34,8 @@ Here we assemble a set of mathematical identities and relationships involving
 matrices---including scalar, vector, and matrix forms constructed from combinations of
 scalars, vectors, and matrices---and their derivatives.
 We also assemble a set of identies involving Gaussians.
-These sets of identities are not exhaustive,
-but rather concentrate on the identities most valuable
+These sets of identities are not intended to be exhaustive.
+Instead we concentrate on the identities most valuable
 for the appearance of matrices and Gaussians in machine-learning and data-analysis contexts.
 This paper expands and adds context to some crib sheets that have been
 available on the internet for years.
@@ -39,13 +43,55 @@ available on the internet for years.
 \clearpage
 \section{Introduction}
 
-...Comments about the linear algebra they don't teach you in school!
+It is possible to take an entire undergraduate linear algebra course
+without ever performing any operations on any non-square
+matrices.\footnote{One of us---Hogg---did!}
+And yet non-square matrices are the norm in matters of data analysis
+and machine learning.
+Consider the concept of rectangular data, or low-rank forms for
+square matrices.
+Or a derivative of one vector with respect to another of different
+dimensionality.
+In general, a matrix represents a kind of ratio of vectors; if those
+vectors are in different spaces then the matrix will, in general, be
+non-square.
+And both square and non-square matrices are involved in a wide range
+of scalar, vector, and tensor forms that appear in diverse contexts in
+machine learning and probabilistic modeling.
+Linear algebra is the language of machine learning.
+The manipulation of linear algebra expressions is a key capability for
+any researcher in the field.
 
-...Comments about the value of Gaussians---which flows from the simplicity of the linear algebra!
+In our own research (which tends towards probabilistic modeling and
+probabilistic methods), Gaussians---normal distributions---also appear
+everywhere, in part because they are so simple in their properties
+(as we will see below), and in part because
+they are the outcome of the central limit theorem, and in part
+because they are maximum-entropy distributions (constrained by
+a known mean and variance).
+The normal distribution involves the exponentiation of a
+non-positive semi-definite quadratic form.
+The general non-positive semi-definite quadratic form involves linear
+algebra:
+It is the inner product of a vector with itself through (the negative
+of) a non-negative semi-definite tensor, or metric tensor, which
+itself might have low rank or interesting structure.
+For this reason, linear algebra is critical to manipulation of
+interesting Gaussian forms, and there are shared technologies between
+linear algebra and probabilistic inference.
 
-...Historical comments about these notes, including when they were written and why.
-
-...Personal note about Sam?
+These two sets of identities---one for the manipulation and
+simplification of matrix expressions, and one for the manipulation and
+simplification of Gaussian expressions---were prepared many years ago
+by Sam Roweis, possibly even started when he was a graduate
+student at the California Institute of Technology.
+They have remained on the internet after Roweis's untimely death in 2010,
+as a valuable tool for researchers, and as a reminder of Roweis for his
+friends.
+Roweis was one of the pioneers of probabilistic machine learning, an ambitious
+applied researcher, and a wonderful colleague and friend.
+Anything more is out of scope, but we encourage anyone using these notes to
+take a look at his remarkable body of work.
 
 In what follows, we include the Roweis notes verbatim, preserving
 the original typesetting decisions as closely as possible.
