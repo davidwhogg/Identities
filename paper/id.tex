@@ -100,6 +100,8 @@ simplification of matrix expressions, and one for the manipulation and
 simplification of Gaussian expressions---were prepared many years ago
 by Sam Roweis, when he was a graduate
 student at the California Institute of Technology.
+The versions of his notes preserved here were dated (unreliably) at summer
+of 1999.
 They have remained on the internet after Roweis's untimely death in 2010,
 as a valuable tool for researchers, and as a reminder of Roweis for his
 friends.
@@ -108,16 +110,23 @@ applied researcher, and a wonderful colleague and friend.
 Anything more is out of scope, but we encourage anyone using these notes to
 take a look at his remarkable body of work.
 
-There is nothing new or original in these notes; nothing that can't be found
-elsewhere (CITE MATRIX COOKBOOK, for example)... HOGG ADD WORDS.
+There is nothing new or original in these notes.
+They contain nothing that can't be found elsewhere (for example,
+essentially all of the matrix identities given here are also in
+\textit{The Matrix Cookbook}, Petersen \& Pedersen, 2012).
+These lists of identities represent a subjective and (no doubt) flawed
+distillation by Roweis down to what's most important for machine
+learning and probabilistic inference.
+They also represent a snapshot of the young Sam Roweis, which we would
+like to preserve for sentimental reasons.
 
 In what follows, we include the Roweis notes verbatim, preserving
 the original typesetting decisions as closely as possible.
 We have not, however, preserved the equation numbering,
 and we have messed with the line breaks or horizontal alignment for some equations.
 We have also corrected a few tiny typos, including one or two places where
-Roweis (deliberately) didn't capitalize letters.
-We make these changes with apologies to the faithful and utmost respect to the dead.
+Roweis (deliberately) didn't capitalize letters (though we left most of it as-is).
+We make these changes with apologies to the faithful and respect for the dead.
 For those who want to see the original notes, we have preserved them in a git
 repository available online\footnote{\url{https://github.com/davidwhogg/Identities}}.
 We follow the verbatim notes with some discussion and some additional forms.
@@ -515,5 +524,19 @@ where the $j$th column of $\CC$ is $\partial c_j(\xx) / \partial \xx$
 \section{Discussion}
 
 Hello World.
+
+\clearpage
+\section*{References}
+\begin{list}{}{%
+    \rightmargin=0in
+    \leftmargin=\parindent
+    \topsep=0ex
+    \partopsep=0pt
+    \itemsep=0.2ex
+    \parsep=0pt
+    \itemindent=-1.0\leftmargin
+    \listparindent=0.0\leftmargin}
+\item Petersen,~K.~B. \& Pedersen,~M.~S., 2012, The Matrix Cookbook, \url{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}.
+\end{list}
 
 \end{document}
